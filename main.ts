@@ -873,8 +873,8 @@ namespace sensors {
 
    let initialized = false
    //let neoStrip: neopixel.Strip;
-   let emRGBLight: EMRGBLight.EmakefunRGBLight;
-   let board_emRGBLight: EMRGBLight.EmakefunRGBLight;
+   //let emRGBLight: EMRGBLight.EmakefunRGBLight;
+   //let board_emRGBLight: EMRGBLight.EmakefunRGBLight;
    let matBuf = pins.createBuffer(17);
    let distanceBuf = 0;
 
@@ -910,6 +910,7 @@ namespace sensors {
 
    }
 
+   /*
    function RgbDisplay(indexstart: number, indexend: number, rgb: RgbColors): void {
        for (let i = indexstart; i <= indexend; i++) {
            emRGBLight.setPixelColor(i, rgb);
@@ -1096,6 +1097,7 @@ namespace sensors {
                break;
        }
 }
+   */
 
   /**
     * set RUS04 color
@@ -1109,9 +1111,10 @@ namespace sensors {
    //% weight=75
    //% inlineInputMode=inline
    //% subcategory="传感器"
-   export function sensorbit_rus04(pin: DigitalPin, index: RgbUltrasonics, rgb: RgbColors, effect: ColorEffect): void {
+   /*export function sensorbit_rus04(pin: DigitalPin, index: RgbUltrasonics, rgb: RgbColors, effect: ColorEffect): void {
        rus04_rgb(pin, 0, index, rgb, effect);
    }
+   */
 
    let em_dht11Temperature = 0;
    let em_dht11Humidity = 0;
