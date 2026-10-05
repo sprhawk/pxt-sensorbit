@@ -166,9 +166,9 @@ enum barb_fitting {
     //% block="RIGHT" 
     BUTOON_RIGHT = 1,
     //% block="UP"
-    BUTOON_UP = 2, 
+    BUTOON_UP = 2,
     //% block="DOWN"
-    BUTOON_DOWN = 3, 
+    BUTOON_DOWN = 3,
     //% block="BUTTON"
     JOYSTICK_BUTTON = 4,
 }
@@ -188,7 +188,7 @@ enum key_status {
     NONE_PRESS = 8,      //未按
 }
 
-enum Shaft{
+enum Shaft {
     //% block="X"
     X_Shaft = 0,
     //% block="Y"
@@ -206,14 +206,14 @@ enum Mode {
     KEYWORDS_AND_BUTTON = 3, //关键字加按键模式
 }
 
- //% color="#FFA500" weight=10 icon="\uf2c9" block="Sensor:bit"
-namespace sensors { 
-   
+//% color="#FFA500" weight=10 icon="\uf2c9" block="Sensor:bit"
+namespace sensors {
+
     //% blockId=touchbutton block="touch |digital pin %pin"   group="触摸模块"
     //% weight=70
     //% subcategory="基础输入模块"
     export function touchButton(pin: DigitalPin): boolean {
-       // pins.digitalWritePin(pin, 0)
+        // pins.digitalWritePin(pin, 0)
         if (pins.digitalReadPin(pin) == 1) {
             return true;
         } else {
@@ -225,7 +225,7 @@ namespace sensors {
     //% weight=70
     //% subcategory="基础输入模块"
     export function Button(pin: DigitalPin): boolean {
-     //   pins.digitalWritePin(pin, 0)
+        //   pins.digitalWritePin(pin, 0)
         if (pins.digitalReadPin(pin) == 1) {
             return false;
         } else {
@@ -237,7 +237,7 @@ namespace sensors {
     //% weight=70
     //% subcategory="基础输入模块"
     export function crashButton(pin: DigitalPin): boolean {
-       // pins.digitalWritePin(pin, 0)
+        // pins.digitalWritePin(pin, 0)
         if (pins.digitalReadPin(pin) == 1) {
             return false;
         } else {
@@ -260,7 +260,7 @@ namespace sensors {
         let row = pins.analogReadPin(pin)
         return row
     }
-   
+
     let _SDO = 0
     let _SCL = 0
     /**
@@ -294,7 +294,7 @@ namespace sensors {
             DATA |= pins.digitalReadPin(_SDO) << i
         }
         control.waitMicros(2 * 1000)
-// 	serial.writeString('' + DATA + '\n');
+        // 	serial.writeString('' + DATA + '\n');
         switch (DATA & 0xFFFF) {
             case 0xFFFE: return "1"
             case 0xFFFD: return "2"
@@ -315,7 +315,7 @@ namespace sensors {
             default: return " "
         }
     }
-    
+
 
     let Xpin = 0
     let Ypin = 0
@@ -351,7 +351,7 @@ namespace sensors {
     //% weight=68
     //% subcategory="基础输入模块"
     export function _digitalRead(): boolean {
-       // pins.digitalWritePin(Bpin, 0)
+        // pins.digitalWritePin(Bpin, 0)
         if (pins.digitalReadPin(Bpin) == 1) {
             return false;
         } else {
@@ -409,7 +409,7 @@ namespace sensors {
                 music.playTone(523, music.beat(BeatFraction.Half))
             }
         }
-    }	
+    }
     let _pianoDIO = 0
     let _pianoCLK = 0
     /**
@@ -443,7 +443,7 @@ namespace sensors {
             DATA |= pins.digitalReadPin(_pianoDIO) << i
         }
         control.waitMicros(2 * 1000)
-//         serial.writeString('' + DATA + '\n');
+        //         serial.writeString('' + DATA + '\n');
         switch (DATA & 0xFF) {
             case 0xFE: music.playTone(262, music.beat(BeatFraction.Half)); break;
             case 0xFD: music.playTone(294, music.beat(BeatFraction.Half)); break;
@@ -453,7 +453,7 @@ namespace sensors {
             case 0xDF: music.playTone(440, music.beat(BeatFraction.Half)); break;
             case 0xBF: music.playTone(494, music.beat(BeatFraction.Half)); break;
             case 0x7F: music.playTone(523, music.beat(BeatFraction.Half)); break;
-//             default: return " "
+            //             default: return " "
         }
     }
 
@@ -465,11 +465,10 @@ namespace sensors {
     //% subcategory="基础输入模块"
     //% inlineInputMode=inline
     export function Gamepad_Press(button: barb_fitting): boolean {
-        if(Get_Button_Status(button) != NONE_PRESS && Get_Button_Status(button) != 0xff)
-    {
-        return true;
-    }
-        return false;   
+        if (Get_Button_Status(button) != NONE_PRESS && Get_Button_Status(button) != 0xff) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -480,11 +479,10 @@ namespace sensors {
     //% subcategory="基础输入模块"
     //% inlineInputMode=inline
     export function Gamepad_Release(button: barb_fitting): boolean {
-        if(Get_Button_Status(button) == NONE_PRESS)
-    {
-        return true;
-    }
-        return false;   
+        if (Get_Button_Status(button) == NONE_PRESS) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -494,13 +492,13 @@ namespace sensors {
     //% weight=74
     //% subcategory="基础输入模块"
     //% inlineInputMode=inline
-    export function Gamepad_Shaft(shaft: Shaft): number { 
+    export function Gamepad_Shaft(shaft: Shaft): number {
         let value = 0;
-        if(shaft == 0){
-            value = i2cread(JOYSTICK_I2C_ADDR,JOYSTICK_LEFT_X_REG);
+        if (shaft == 0) {
+            value = i2cread(JOYSTICK_I2C_ADDR, JOYSTICK_LEFT_X_REG);
         }
-        if(shaft == 1){
-            value = i2cread(JOYSTICK_I2C_ADDR,JOYSTICK_LEFT_Y_REG);
+        if (shaft == 1) {
+            value = i2cread(JOYSTICK_I2C_ADDR, JOYSTICK_LEFT_Y_REG);
         }
         return value;
     }
@@ -512,16 +510,15 @@ namespace sensors {
     //% weight=74
     //% subcategory="基础输入模块"
     //% inlineInputMode=inline
-    export function Gamepad_Status(button : barb_fitting,status : key_status): boolean {
-	    if(Get_Button_Status(button) == status)
-	    {
-		return true;
-	    }else{
-		return false;
-	    }
+    export function Gamepad_Status(button: barb_fitting, status: key_status): boolean {
+        if (Get_Button_Status(button) == status) {
+            return true;
+        } else {
+            return false;
+        }
     }
-      
-     let VOICE_RESET_REG = 0x5;
+
+    let VOICE_RESET_REG = 0x5;
     let VOICE_IIC_ADDR = 0x79;
     let VOICE_ADD_WORDS_REG = 0x04;
     let VOICE_ASR_START_REG = 0x6;
@@ -535,16 +532,16 @@ namespace sensors {
         pins.i2cWriteBuffer(addr, buf)
     }
 
-    function i2cwrite1(addr: number, reg: number, value: number ,value1: string) {
+    function i2cwrite1(addr: number, reg: number, value: number, value1: string) {
         let lengths = value1.length
-        let buf = pins.createBuffer(2+lengths)
+        let buf = pins.createBuffer(2 + lengths)
         //let arr = value1.split('')
-        buf[0] = reg 
+        buf[0] = reg
         buf[1] = value
         let betys = []
         betys = stringToBytes(value1)
         for (let i = 0; i < betys.length; i++) {
-            buf[2+i] = betys[i]
+            buf[2 + i] = betys[i]
         }
         pins.i2cWriteBuffer(addr, buf)
     }
@@ -554,789 +551,789 @@ namespace sensors {
         buf[0] = value
         pins.i2cWriteBuffer(addr, buf)
     }
-    
+
     //% blockId=sensor_water block="Water vapor sensor pin %pines"  group="水蒸气传感器"
     //% weight=70
     //% inlineInputMode=inline
     //% subcategory="传感器"
-    export function sensor_water(pines: AnalogPin): number{
+    export function sensor_water(pines: AnalogPin): number {
         return pins.analogReadPin(pines);
-        
-   }
 
-
-   //% blockId=sensor_temperature block="Pin %pin reads the analog value of the LM35"  group="LM35温度传感器"
-   //% weight=70
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function sensor_temperature(pin: AnalogPin): number {
-       let temp = (pins.analogReadPin(pin) / 1023) * 3.3 * 100;
-       return temp
-
-   }
-
-
-   //% blockId=sensor_infraredTracking block="Pin %pin reads the digital value of the infraredTracking sensor" group="红外循迹传感器"
-   //% weight=70
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function sensor_infraredTracking(pin: DigitalPin): boolean {
-    //   pins.digitalWritePin(pin, 0)
-       if (pins.digitalReadPin(pin) == 1) {
-           return true;
-       } else {
-           return false;
-       }
-   }
-
-   //% blockId=sensor_incline block="sensor_incline pin |digitalpin %pin" group="倾斜传感器"
-   //% weight=70
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function sensor_incline(pin: DigitalPin): boolean {
-     //  pins.digitalWritePin(pin, 0)
-       if (pins.digitalReadPin(pin) == 1) {
-           return false;
-       } else {
-           return true;
-       }
-       // return pins.digitalReadPin(pin)
-
-   }
-
-   /**
-    * 光敏传感器
-    */
-
-   //% blockId=sensor_illumination block="sensor_illumination pin |analogpin %pin" group="光敏传感器"
-   //% weight=70
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function sensor_illumination(pin: AnalogPin): number {
-       return pins.analogReadPin(pin)
-   }
-
-   /**
-    * 热敏传感器
-    */
-
-   //% blockId=sensor_thermosensitive block="sensor_thermosensitive pin |analogpin %pin" group="热敏传感器"
-   //% weight=70
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function sensor_thermosensitive(pin: AnalogPin): number {
-       return pins.analogReadPin(pin)
-   }
-
-   /**
-    * 水深传感器
-    */
-
-   //% blockId=sensor_waterLevel block="sensor_waterLevel pin |analogpin %pin" group="水深传感器"
-   //% weight=70
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function sensor_waterLevel(pin: AnalogPin): number {
-       return pins.analogReadPin(pin)
-   }
-
-   /**
-    * 土壤湿度传感器
-    */
-
-   //% blockId=sensor_soilMoisture block="sensor_soilMoisture pin |analogpin %pin"  group="土壤湿度传感器"
-   //% weight=70
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function sensor_soilMoisture(pin: AnalogPin): number {
-       return pins.analogReadPin(pin)
-   }
-
-   /**
-    * 灰度传感器
-    */
-
-   //% blockId=sensor_grayLevel block="sensor_grayLevel pin |analogpin %pin" group="灰度传感器"
-   //% weight=70
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function sensor_grayLevel(pin: AnalogPin): number {
-    return pins.analogReadPin(pin)
-}
-
-   /**
-    * 避障传感器
-    */
-
-   //% blockId=sensor_obstacleAvoid block="sensor_obstacleAvoid pin |digitalpin %pin" group="避障传感器"
-   //% weight=70
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function sensor_obstacleAvoid(pin: DigitalPin): boolean {
-      // pins.digitalWritePin(pin, 0)
-       if (pins.digitalReadPin(pin) == 1) {
-           return false;
-       } else {
-           return true;
-       }
-       // return pins.digitalReadPin(pin)   
-   }
-
-   /**
-    * 磁簧开关传感器
-    */
-
-   //% blockId=sensor_reedSwitch block="sensor_reedSwitch pin |digitalpin %pin" group="磁簧开关传感器"
-   //% weight=70
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function sensor_reedSwitch(pin: DigitalPin): boolean {
-      // pins.digitalWritePin(pin, 0)
-       if (pins.digitalReadPin(pin) == 1) {
-           return false;
-       } else {
-           return true;
-       }
-   }
-
-   /**
-    * 人体热释电传感器
-    */
-
-   //% blockId=sensor_humanBody block="sensor_humanBody pin |digitalpin %pin" group="人体热释电传感器"
-   //% weight=70
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function sensor_humanBody(pin: DigitalPin): boolean {
-    //   pins.digitalWritePin(pin, 0)
-       if (pins.digitalReadPin(pin) == 1) {
-           return true;
-       } else {
-           return false;
-       }
-   }
-
-      //% blockId=sensor_flame block="Pin %pin reads the digital value of the flame sensor" group="火焰传感器"
-   //% weight=70
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function sensor_flame(pin: DigitalPin): boolean {
-    // pins.digitalWritePin(pin, 0)
-     if (pins.digitalReadPin(pin) == 1) {
-         return false;
-     } else {
-         return true;
-     }
- }
-
- //% blockId=sensor_flame_analog block="Pin %pin reads the analog value of the flame sensor" group="火焰传感器"
- //% weight=70
- //% inlineInputMode=inline
- //% subcategory="传感器"
- export function sensor_flame_analog(pin: AnalogPin): number {
-     return pins.analogReadPin(pin)
- }
-
- /**
-  * get distance
-  * @param trig eg: DigitalPin.P13
-  * @param echo eg: DigitalPin.P14
-  * @param unit 
-  * @param maxCmDistance 
-  * @returns 
-  */
-   //% blockId="sensor_ping" block="ping trig %trig|echo %echo|unit %unit" group="普通超声波传感器"
-   //% weight=75
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function ping(trig: DigitalPin, echo: DigitalPin, unit: PingUnit, maxCmDistance = 500): number {
-    // send pulse
-    pins.setPull(trig, PinPullMode.PullNone);
-    pins.digitalWritePin(trig, 0);
-    control.waitMicros(2);
-    pins.digitalWritePin(trig, 1);
-    control.waitMicros(10);
-    pins.digitalWritePin(trig, 0);
-
-    // read pulse
-    const d = pins.pulseIn(echo, PulseValue.High, maxCmDistance * 58);
-
-    switch (unit) {
-        case PingUnit.Centimeters: return Math.idiv(d, 58);
-        case PingUnit.Inches: return Math.idiv(d, 148);
-        default: return d;
     }
-}
-
-   /**
-    * 震动传感器
-    */
-
-   //% blockId=sensor_quake block="sensor_quake pin |digitalpin %pin" group="震动传感器"
-   //% weight=70
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function sensor_quake(pin: DigitalPin): boolean {
-    //   pins.digitalWritePin(pin, 0)
-       if (pins.digitalReadPin(pin) == 1) {
-           return false;
-       } else {
-           return true;
-       }
-   }
-
-   /**
-    * 震动传感器
-    */
-
-   //% blockId=sensor_quake_analog block="sensor_quake pin |digitalpin %pin" group="震动传感器"
-   //% weight=70
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function sensor_quake_analog(pin: AnalogPin): number {
-       return pins.analogReadPin(pin)
-   }
 
 
-   /**
-    * 声音传感器
-    */
-   //% blockId=sensor_sound_analogread  block="Pin %pin reads the analog value of the sound sensor" group="声音传感器"
-   //% weight=70
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function sensor_sound_analogread(_AS: AnalogPin): number {
-       return pins.analogReadPin(_AS)
+    //% blockId=sensor_temperature block="Pin %pin reads the analog value of the LM35"  group="LM35温度传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_temperature(pin: AnalogPin): number {
+        let temp = (pins.analogReadPin(pin) / 1023) * 3.3 * 100;
+        return temp
 
-   }
+    }
 
-   //% blockId=sensor_sound_digitalread  block="Pin %pin reads the digital value of the sound sensor" group="声音传感器"
-   //% weight=70
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function sensor_sound_digitalread(_DS: DigitalPin): boolean {
-    //   pins.digitalWritePin(_DS, 0)
-       if (pins.digitalReadPin(_DS) == 1) {
-           return false;
-       } else {
-           return true;
-       }
-   }
 
-   /**
-    * 雨滴传感器
-    */
-   //% blockId=sensor_rain_analogread  block="Pin %pin reads the analog value of the rain sensor"  group="雨滴传感器"
-   //% weight=70
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function sensor_rain_analogread(_DR: AnalogPin): number {
-       return pins.analogReadPin(_DR)
-   }
-
-   //% blockId=sensor_rain_digitalread  block="Pin %pin reads the digital value of the rain sensor"   group="雨滴传感器"
-   //% weight=70
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function sensor_rain_digitalread(_DR: DigitalPin): boolean {
-     //  pins.digitalWritePin(_DR, 0)
-       if (pins.digitalReadPin(_DR) == 1) {
-           return false;
-       } else {
-           return true;
-       }
-   }
-
-   /**
-    * 气体传感器
-    */
-   //% blockId=sensor_gas_analogread  block="Pin %pin reads the analog value of the MQ4-gas sensor"  group="MQ4气体传感器"
-   //% weight=70
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function sensor_gas_analogread(_AG: AnalogPin): number {
-       return pins.analogReadPin(_AG)
-   }
-
-   //% blockId=sensor_gas_digitalread  block="Pin %pin reads the digital value of the MQ4-gas sensor"  group="MQ4气体传感器"
-   //% weight=70
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function sensor_gas_digitalread(_DG: DigitalPin): boolean {
-     //  pins.digitalWritePin(_DG, 0)
-       if (pins.digitalReadPin(_DG) == 1) {
-           return true;
-       } else {
-           return false;
-       }
-   }
-
-   let initialized = false
-   //let neoStrip: neopixel.Strip;
-   //let emRGBLight: EMRGBLight.EmakefunRGBLight;
-   //let board_emRGBLight: EMRGBLight.EmakefunRGBLight;
-   let matBuf = pins.createBuffer(17);
-   let distanceBuf = 0;
-
-   /**
-    * Get RUS04 distance
-    * @param pin Microbit ultrasonic pin; eg: DigitalPin.P2
-   */
-   //% blockId=Ultrasonic block="Read RgbUltrasonic Distance at pin %pin(cm)"  group="RGB超声波传感器"
-   //% weight=76
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   export function Ultrasonic(pin: DigitalPin): number {
-       pins.setPull(pin, PinPullMode.PullNone);
-       pins.digitalWritePin(pin, 0);
-       control.waitMicros(2);
-       pins.digitalWritePin(pin, 1);
-       control.waitMicros(50);
-       pins.digitalWritePin(pin, 0);
-       control.waitMicros(1000);
-       while(!pins.digitalReadPin(pin));
-       // read pulse
-       let d = pins.pulseIn(pin, PulseValue.High, 25000);
-       let ret = d;
-       // filter timeout spikes
-       if (ret == 0 && distanceBuf != 0) {
-           ret = distanceBuf;
-       }
-       distanceBuf = d;
-       //return d;
-       return Math.floor(ret * 9 / 6 / 58);
-       //return Math.floor(ret / 40 + (ret / 800));
-       // Correction
-
-   }
-
-   /*
-   function RgbDisplay(indexstart: number, indexend: number, rgb: RgbColors): void {
-       for (let i = indexstart; i <= indexend; i++) {
-           emRGBLight.setPixelColor(i, rgb);
-       }
-       emRGBLight.show();
-   }
-   
-   function board_RgbDisplay(indexstart: number, indexend: number, rgb: RgbColors): void {
-       for (let i = indexstart; i <= indexend; i++) {
-           board_emRGBLight.setPixelColor(i, rgb);
-       }
-       board_emRGBLight.show();
-   }
-
-   export function rus04_rgb(pin: DigitalPin, offset: number, index: number, rgb: number, effect: number): void {
-       let start = 0, end = 0;
-       if (!emRGBLight) {
-           emRGBLight = EMRGBLight.create(pin, 10, EMRGBPixelMode.RGB)
-       }
-       //if(offset >= 4 || offset == 0){
-           if (index == RgbUltrasonics.Left) {
-               start = 0;
-               end = 2;
-           } else if (index == RgbUltrasonics.Right) {
-               start = 3;
-               end = 5;
-           } else if (index == RgbUltrasonics.All) {
-               start = 0;
-               end = 5;
-           }
-      // }
-       start += offset;
-       end += offset;
-       switch (effect) {
-           case ColorEffect.None:
-               emRGBLight.setBrightness(255);
-               RgbDisplay(start, end, rgb);
-               break;
-           case ColorEffect.Breathing:
-               for (let i = 0; i < 255; i += 2) {
-                   emRGBLight.setBrightness(i);
-                   RgbDisplay(start, end, rgb);
-                   //basic.pause((255 - i)/2);
-                   basic.pause((i < 50) ? 10 : (255 / i));
-               }
-               for (let i = 255; i > 0; i -= 2) {
-                   emRGBLight.setBrightness(i);
-                   RgbDisplay(start, end, rgb);
-                   basic.pause((i < 50) ? 10 : (255 / i));
-               }
-               break;
-           case ColorEffect.Rotate:
-               emRGBLight.setBrightness(255);
-               for (let i = 0; i < 4; i++) {
-                   emRGBLight.setPixelColor(start, rgb);
-                   emRGBLight.setPixelColor(start + 1, 0);
-                   emRGBLight.setPixelColor(start + 2, 0);
-                   if (index == RgbUltrasonics.All) {
-                       emRGBLight.setPixelColor(end - 2, rgb);
-                       emRGBLight.setPixelColor(end - 1, 0);
-                       emRGBLight.setPixelColor(end, 0);
-                   }
-                   emRGBLight.show();
-                   basic.pause(150);
-                   emRGBLight.setPixelColor(start, 0);
-                   emRGBLight.setPixelColor(start + 1, rgb);
-                   emRGBLight.setPixelColor(start + 2, 0);
-                   if (index == RgbUltrasonics.All) {
-                       emRGBLight.setPixelColor(end - 2, 0);
-                       emRGBLight.setPixelColor(end - 1, rgb);
-                       emRGBLight.setPixelColor(end, 0);
-                   }
-                   emRGBLight.show();
-                   basic.pause(150);
-                   emRGBLight.setPixelColor(start, 0);
-                   emRGBLight.setPixelColor(start + 1, 0);
-                   emRGBLight.setPixelColor(start + 2, rgb);
-                   if (index == RgbUltrasonics.All) {
-                       emRGBLight.setPixelColor(end - 2, 0);
-                       emRGBLight.setPixelColor(end - 1, 0);
-                       emRGBLight.setPixelColor(end, rgb);
-                   }
-                   emRGBLight.show();
-                   basic.pause(150);
-                   emRGBLight.setBrightness(0);
-               }
-               RgbDisplay(4, 9, 0);
-               break;
-           case ColorEffect.Flash:
-               for (let i = 0; i < 3; i++) {
-                   emRGBLight.setBrightness(255);
-                   RgbDisplay(start, end, rgb);
-                   basic.pause(100);
-                   RgbDisplay(start, end, 0);
-                   basic.pause(50);
-               }
-               break;
-       }
-   }
-   
-  
-   export function board_rus04_rgb(pin: DigitalPin, offset: number, index: number, rgb: number, effect: number): void {
-       let start = 0, end = 0;
-       if (!board_emRGBLight) {
-           board_emRGBLight = EMRGBLight.create(pin, 10, EMRGBPixelMode.RGB)
-       }
-       if(offset >= 4){
-           if (index == RgbUltrasonics.Left) {
-               start = 0;
-               end = 2;
-           } else if (index == RgbUltrasonics.Right) {
-               start = 3;
-               end = 5;
-           } else if (index == RgbUltrasonics.All) {
-               start = 0;
-               end = 5;
-           }
-       }
-       start += offset;
-       end += offset;
-       switch (effect) {
-           case ColorEffect.None:
-               board_emRGBLight.setBrightness(255);
-               board_RgbDisplay(start, end, rgb);
-               break;
-           case ColorEffect.Breathing:
-               for (let i = 0; i < 255; i += 2) {
-                   board_emRGBLight.setBrightness(i);
-                   board_RgbDisplay(start, end, rgb);
-                   //basic.pause((255 - i)/2);
-                   basic.pause((i < 50) ? 10 : (255 / i));
-               }
-               for (let i = 255; i > 0; i -= 2) {
-                   board_emRGBLight.setBrightness(i);
-                   board_RgbDisplay(start, end, rgb);
-                   basic.pause((i < 50) ? 10 : (255 / i));
-               }
-               break;
-           case ColorEffect.Rotate:
-               board_emRGBLight.setBrightness(255);
-               for (let i = 0; i < 4; i++) {
-                   board_emRGBLight.setPixelColor(start, rgb);
-                   board_emRGBLight.setPixelColor(start + 1, 0);
-                   board_emRGBLight.setPixelColor(start + 2, 0);
-                   if (index == RgbUltrasonics.All) {
-                       board_emRGBLight.setPixelColor(end - 2, rgb);
-                       board_emRGBLight.setPixelColor(end - 1, 0);
-                       board_emRGBLight.setPixelColor(end, 0);
-                   }
-                   board_emRGBLight.show();
-                   basic.pause(150);
-                   board_emRGBLight.setPixelColor(start, 0);
-                   board_emRGBLight.setPixelColor(start + 1, rgb);
-                   board_emRGBLight.setPixelColor(start + 2, 0);
-                   if (index == RgbUltrasonics.All) {
-                       board_emRGBLight.setPixelColor(end - 2, 0);
-                       board_emRGBLight.setPixelColor(end - 1, rgb);
-                       board_emRGBLight.setPixelColor(end, 0);
-                   }
-                   board_emRGBLight.show();
-                   basic.pause(150);
-                   board_emRGBLight.setPixelColor(start, 0);
-                   board_emRGBLight.setPixelColor(start + 1, 0);
-                   board_emRGBLight.setPixelColor(start + 2, rgb);
-                   if (index == RgbUltrasonics.All) {
-                       board_emRGBLight.setPixelColor(end - 2, 0);
-                       board_emRGBLight.setPixelColor(end - 1, 0);
-                       board_emRGBLight.setPixelColor(end, rgb);
-                   }
-                   board_emRGBLight.show();
-                   basic.pause(150);
-                   board_emRGBLight.setBrightness(0);
-               }
-               board_RgbDisplay(4, 9, 0);
-               break;
-           case ColorEffect.Flash:
-               for (let i = 0; i < 3; i++) {
-                   board_emRGBLight.setBrightness(255);
-                   board_RgbDisplay(start, end, rgb);
-                   basic.pause(100);
-                   board_RgbDisplay(start, end, 0);
-                   basic.pause(50);
-               }
-               break;
-       }
-}
-   */
-
-  /**
-    * set RUS04 color
-    * @param pin RGB PIN eg:DigitalPin.P16
-    * @param offset 
-    * @param index  index
-    * @param rgb color
-    * @param effect effect
-    */
-   //% blockId="sensorbit_rus04" block="part %index show color %rgb effect %effect rgbpin %pin"  group="RGB超声波传感器"
-   //% weight=75
-   //% inlineInputMode=inline
-   //% subcategory="传感器"
-   /*export function sensorbit_rus04(pin: DigitalPin, index: RgbUltrasonics, rgb: RgbColors, effect: ColorEffect): void {
-       rus04_rgb(pin, 0, index, rgb, effect);
-   }
-   */
-
-   let em_dht11Temperature = 0;
-   let em_dht11Humidity = 0;
-   /**
-    * 
-    * @param dht11pin  dht11 pin eg:DigitalPin.P13
-    * @param dht11type 
-    * @returns 
-    */
-   //% blockId="dht11value" block="value of dht11 %dht11type at pin %dht11pin"  group="DHT11温湿度传感器"
-   //% subcategory="传感器"
-   //% inlineInputMode=inline
-   //% weight=72
-   export function dht11value(dht11pin: DigitalPin, dht11type: EM_DHT11Type): number {
-    const DHT11_TIMEOUT = 100
-    const buffer = pins.createBuffer(40)
-    const data = [0, 0, 0, 0, 0]
-    let startTime = control.micros()
-
-    if (control.hardwareVersion().slice(0, 1) !== '1') { // V2
-        // TODO: V2 bug
-        pins.digitalReadPin(DigitalPin.P0);
-        pins.digitalReadPin(DigitalPin.P1);
-        pins.digitalReadPin(DigitalPin.P2);
-        pins.digitalReadPin(DigitalPin.P3);
-        pins.digitalReadPin(DigitalPin.P4);
-        pins.digitalReadPin(DigitalPin.P10);
-
-        // 1.start signal
-        pins.digitalWritePin(dht11pin, 0)
-        basic.pause(18)
-
-        // 2.pull up and wait 40us
-        pins.setPull(dht11pin, PinPullMode.PullUp)
-        pins.digitalReadPin(dht11pin)
-        control.waitMicros(40)
-
-        // 3.read data
-        startTime = control.micros()
-        while (pins.digitalReadPin(dht11pin) === 0) {
-            if (control.micros() - startTime > DHT11_TIMEOUT) break
+    //% blockId=sensor_infraredTracking block="Pin %pin reads the digital value of the infraredTracking sensor" group="红外循迹传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_infraredTracking(pin: DigitalPin): boolean {
+        //   pins.digitalWritePin(pin, 0)
+        if (pins.digitalReadPin(pin) == 1) {
+            return true;
+        } else {
+            return false;
         }
-        startTime = control.micros()
-        while (pins.digitalReadPin(dht11pin) === 1) {
-            if (control.micros() - startTime > DHT11_TIMEOUT) break
-        }
+    }
 
-        for (let dataBits = 0; dataBits < 40; dataBits++) {
-            startTime = control.micros()
-            while (pins.digitalReadPin(dht11pin) === 1) {
-                if (control.micros() - startTime > DHT11_TIMEOUT) break
+    //% blockId=sensor_incline block="sensor_incline pin |digitalpin %pin" group="倾斜传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_incline(pin: DigitalPin): boolean {
+        //  pins.digitalWritePin(pin, 0)
+        if (pins.digitalReadPin(pin) == 1) {
+            return false;
+        } else {
+            return true;
+        }
+        // return pins.digitalReadPin(pin)
+
+    }
+
+    /**
+     * 光敏传感器
+     */
+
+    //% blockId=sensor_illumination block="sensor_illumination pin |analogpin %pin" group="光敏传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_illumination(pin: AnalogPin): number {
+        return pins.analogReadPin(pin)
+    }
+
+    /**
+     * 热敏传感器
+     */
+
+    //% blockId=sensor_thermosensitive block="sensor_thermosensitive pin |analogpin %pin" group="热敏传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_thermosensitive(pin: AnalogPin): number {
+        return pins.analogReadPin(pin)
+    }
+
+    /**
+     * 水深传感器
+     */
+
+    //% blockId=sensor_waterLevel block="sensor_waterLevel pin |analogpin %pin" group="水深传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_waterLevel(pin: AnalogPin): number {
+        return pins.analogReadPin(pin)
+    }
+
+    /**
+     * 土壤湿度传感器
+     */
+
+    //% blockId=sensor_soilMoisture block="sensor_soilMoisture pin |analogpin %pin"  group="土壤湿度传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_soilMoisture(pin: AnalogPin): number {
+        return pins.analogReadPin(pin)
+    }
+
+    /**
+     * 灰度传感器
+     */
+
+    //% blockId=sensor_grayLevel block="sensor_grayLevel pin |analogpin %pin" group="灰度传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_grayLevel(pin: AnalogPin): number {
+        return pins.analogReadPin(pin)
+    }
+
+    /**
+     * 避障传感器
+     */
+
+    //% blockId=sensor_obstacleAvoid block="sensor_obstacleAvoid pin |digitalpin %pin" group="避障传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_obstacleAvoid(pin: DigitalPin): boolean {
+        // pins.digitalWritePin(pin, 0)
+        if (pins.digitalReadPin(pin) == 1) {
+            return false;
+        } else {
+            return true;
+        }
+        // return pins.digitalReadPin(pin)   
+    }
+
+    /**
+     * 磁簧开关传感器
+     */
+
+    //% blockId=sensor_reedSwitch block="sensor_reedSwitch pin |digitalpin %pin" group="磁簧开关传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_reedSwitch(pin: DigitalPin): boolean {
+        // pins.digitalWritePin(pin, 0)
+        if (pins.digitalReadPin(pin) == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * 人体热释电传感器
+     */
+
+    //% blockId=sensor_humanBody block="sensor_humanBody pin |digitalpin %pin" group="人体热释电传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_humanBody(pin: DigitalPin): boolean {
+        //   pins.digitalWritePin(pin, 0)
+        if (pins.digitalReadPin(pin) == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    //% blockId=sensor_flame block="Pin %pin reads the digital value of the flame sensor" group="火焰传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_flame(pin: DigitalPin): boolean {
+        // pins.digitalWritePin(pin, 0)
+        if (pins.digitalReadPin(pin) == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //% blockId=sensor_flame_analog block="Pin %pin reads the analog value of the flame sensor" group="火焰传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_flame_analog(pin: AnalogPin): number {
+        return pins.analogReadPin(pin)
+    }
+
+    /**
+     * get distance
+     * @param trig eg: DigitalPin.P13
+     * @param echo eg: DigitalPin.P14
+     * @param unit 
+     * @param maxCmDistance 
+     * @returns 
+     */
+    //% blockId="sensor_ping" block="ping trig %trig|echo %echo|unit %unit" group="普通超声波传感器"
+    //% weight=75
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function ping(trig: DigitalPin, echo: DigitalPin, unit: PingUnit, maxCmDistance = 500): number {
+        // send pulse
+        pins.setPull(trig, PinPullMode.PullNone);
+        pins.digitalWritePin(trig, 0);
+        control.waitMicros(2);
+        pins.digitalWritePin(trig, 1);
+        control.waitMicros(10);
+        pins.digitalWritePin(trig, 0);
+
+        // read pulse
+        const d = pins.pulseIn(echo, PulseValue.High, maxCmDistance * 58);
+
+        switch (unit) {
+            case PingUnit.Centimeters: return Math.idiv(d, 58);
+            case PingUnit.Inches: return Math.idiv(d, 148);
+            default: return d;
+        }
+    }
+
+    /**
+     * 震动传感器
+     */
+
+    //% blockId=sensor_quake block="sensor_quake pin |digitalpin %pin" group="震动传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_quake(pin: DigitalPin): boolean {
+        //   pins.digitalWritePin(pin, 0)
+        if (pins.digitalReadPin(pin) == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * 震动传感器
+     */
+
+    //% blockId=sensor_quake_analog block="sensor_quake pin |digitalpin %pin" group="震动传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_quake_analog(pin: AnalogPin): number {
+        return pins.analogReadPin(pin)
+    }
+
+
+    /**
+     * 声音传感器
+     */
+    //% blockId=sensor_sound_analogread  block="Pin %pin reads the analog value of the sound sensor" group="声音传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_sound_analogread(_AS: AnalogPin): number {
+        return pins.analogReadPin(_AS)
+
+    }
+
+    //% blockId=sensor_sound_digitalread  block="Pin %pin reads the digital value of the sound sensor" group="声音传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_sound_digitalread(_DS: DigitalPin): boolean {
+        //   pins.digitalWritePin(_DS, 0)
+        if (pins.digitalReadPin(_DS) == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * 雨滴传感器
+     */
+    //% blockId=sensor_rain_analogread  block="Pin %pin reads the analog value of the rain sensor"  group="雨滴传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_rain_analogread(_DR: AnalogPin): number {
+        return pins.analogReadPin(_DR)
+    }
+
+    //% blockId=sensor_rain_digitalread  block="Pin %pin reads the digital value of the rain sensor"   group="雨滴传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_rain_digitalread(_DR: DigitalPin): boolean {
+        //  pins.digitalWritePin(_DR, 0)
+        if (pins.digitalReadPin(_DR) == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * 气体传感器
+     */
+    //% blockId=sensor_gas_analogread  block="Pin %pin reads the analog value of the MQ4-gas sensor"  group="MQ4气体传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_gas_analogread(_AG: AnalogPin): number {
+        return pins.analogReadPin(_AG)
+    }
+
+    //% blockId=sensor_gas_digitalread  block="Pin %pin reads the digital value of the MQ4-gas sensor"  group="MQ4气体传感器"
+    //% weight=70
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function sensor_gas_digitalread(_DG: DigitalPin): boolean {
+        //  pins.digitalWritePin(_DG, 0)
+        if (pins.digitalReadPin(_DG) == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    let initialized = false
+    //let neoStrip: neopixel.Strip;
+    //let emRGBLight: EMRGBLight.EmakefunRGBLight;
+    //let board_emRGBLight: EMRGBLight.EmakefunRGBLight;
+    let matBuf = pins.createBuffer(17);
+    let distanceBuf = 0;
+
+    /**
+     * Get RUS04 distance
+     * @param pin Microbit ultrasonic pin; eg: DigitalPin.P2
+    */
+    //% blockId=Ultrasonic block="Read RgbUltrasonic Distance at pin %pin(cm)"  group="RGB超声波传感器"
+    //% weight=76
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    export function Ultrasonic(pin: DigitalPin): number {
+        pins.setPull(pin, PinPullMode.PullNone);
+        pins.digitalWritePin(pin, 0);
+        control.waitMicros(2);
+        pins.digitalWritePin(pin, 1);
+        control.waitMicros(50);
+        pins.digitalWritePin(pin, 0);
+        control.waitMicros(1000);
+        while (!pins.digitalReadPin(pin));
+        // read pulse
+        let d = pins.pulseIn(pin, PulseValue.High, 25000);
+        let ret = d;
+        // filter timeout spikes
+        if (ret == 0 && distanceBuf != 0) {
+            ret = distanceBuf;
+        }
+        distanceBuf = d;
+        //return d;
+        return Math.floor(ret * 9 / 6 / 58);
+        //return Math.floor(ret / 40 + (ret / 800));
+        // Correction
+
+    }
+
+    /*
+    function RgbDisplay(indexstart: number, indexend: number, rgb: RgbColors): void {
+        for (let i = indexstart; i <= indexend; i++) {
+            emRGBLight.setPixelColor(i, rgb);
+        }
+        emRGBLight.show();
+    }
+    
+    function board_RgbDisplay(indexstart: number, indexend: number, rgb: RgbColors): void {
+        for (let i = indexstart; i <= indexend; i++) {
+            board_emRGBLight.setPixelColor(i, rgb);
+        }
+        board_emRGBLight.show();
+    }
+ 
+    export function rus04_rgb(pin: DigitalPin, offset: number, index: number, rgb: number, effect: number): void {
+        let start = 0, end = 0;
+        if (!emRGBLight) {
+            emRGBLight = EMRGBLight.create(pin, 10, EMRGBPixelMode.RGB)
+        }
+        //if(offset >= 4 || offset == 0){
+            if (index == RgbUltrasonics.Left) {
+                start = 0;
+                end = 2;
+            } else if (index == RgbUltrasonics.Right) {
+                start = 3;
+                end = 5;
+            } else if (index == RgbUltrasonics.All) {
+                start = 0;
+                end = 5;
             }
+       // }
+        start += offset;
+        end += offset;
+        switch (effect) {
+            case ColorEffect.None:
+                emRGBLight.setBrightness(255);
+                RgbDisplay(start, end, rgb);
+                break;
+            case ColorEffect.Breathing:
+                for (let i = 0; i < 255; i += 2) {
+                    emRGBLight.setBrightness(i);
+                    RgbDisplay(start, end, rgb);
+                    //basic.pause((255 - i)/2);
+                    basic.pause((i < 50) ? 10 : (255 / i));
+                }
+                for (let i = 255; i > 0; i -= 2) {
+                    emRGBLight.setBrightness(i);
+                    RgbDisplay(start, end, rgb);
+                    basic.pause((i < 50) ? 10 : (255 / i));
+                }
+                break;
+            case ColorEffect.Rotate:
+                emRGBLight.setBrightness(255);
+                for (let i = 0; i < 4; i++) {
+                    emRGBLight.setPixelColor(start, rgb);
+                    emRGBLight.setPixelColor(start + 1, 0);
+                    emRGBLight.setPixelColor(start + 2, 0);
+                    if (index == RgbUltrasonics.All) {
+                        emRGBLight.setPixelColor(end - 2, rgb);
+                        emRGBLight.setPixelColor(end - 1, 0);
+                        emRGBLight.setPixelColor(end, 0);
+                    }
+                    emRGBLight.show();
+                    basic.pause(150);
+                    emRGBLight.setPixelColor(start, 0);
+                    emRGBLight.setPixelColor(start + 1, rgb);
+                    emRGBLight.setPixelColor(start + 2, 0);
+                    if (index == RgbUltrasonics.All) {
+                        emRGBLight.setPixelColor(end - 2, 0);
+                        emRGBLight.setPixelColor(end - 1, rgb);
+                        emRGBLight.setPixelColor(end, 0);
+                    }
+                    emRGBLight.show();
+                    basic.pause(150);
+                    emRGBLight.setPixelColor(start, 0);
+                    emRGBLight.setPixelColor(start + 1, 0);
+                    emRGBLight.setPixelColor(start + 2, rgb);
+                    if (index == RgbUltrasonics.All) {
+                        emRGBLight.setPixelColor(end - 2, 0);
+                        emRGBLight.setPixelColor(end - 1, 0);
+                        emRGBLight.setPixelColor(end, rgb);
+                    }
+                    emRGBLight.show();
+                    basic.pause(150);
+                    emRGBLight.setBrightness(0);
+                }
+                RgbDisplay(4, 9, 0);
+                break;
+            case ColorEffect.Flash:
+                for (let i = 0; i < 3; i++) {
+                    emRGBLight.setBrightness(255);
+                    RgbDisplay(start, end, rgb);
+                    basic.pause(100);
+                    RgbDisplay(start, end, 0);
+                    basic.pause(50);
+                }
+                break;
+        }
+    }
+    
+   
+    export function board_rus04_rgb(pin: DigitalPin, offset: number, index: number, rgb: number, effect: number): void {
+        let start = 0, end = 0;
+        if (!board_emRGBLight) {
+            board_emRGBLight = EMRGBLight.create(pin, 10, EMRGBPixelMode.RGB)
+        }
+        if(offset >= 4){
+            if (index == RgbUltrasonics.Left) {
+                start = 0;
+                end = 2;
+            } else if (index == RgbUltrasonics.Right) {
+                start = 3;
+                end = 5;
+            } else if (index == RgbUltrasonics.All) {
+                start = 0;
+                end = 5;
+            }
+        }
+        start += offset;
+        end += offset;
+        switch (effect) {
+            case ColorEffect.None:
+                board_emRGBLight.setBrightness(255);
+                board_RgbDisplay(start, end, rgb);
+                break;
+            case ColorEffect.Breathing:
+                for (let i = 0; i < 255; i += 2) {
+                    board_emRGBLight.setBrightness(i);
+                    board_RgbDisplay(start, end, rgb);
+                    //basic.pause((255 - i)/2);
+                    basic.pause((i < 50) ? 10 : (255 / i));
+                }
+                for (let i = 255; i > 0; i -= 2) {
+                    board_emRGBLight.setBrightness(i);
+                    board_RgbDisplay(start, end, rgb);
+                    basic.pause((i < 50) ? 10 : (255 / i));
+                }
+                break;
+            case ColorEffect.Rotate:
+                board_emRGBLight.setBrightness(255);
+                for (let i = 0; i < 4; i++) {
+                    board_emRGBLight.setPixelColor(start, rgb);
+                    board_emRGBLight.setPixelColor(start + 1, 0);
+                    board_emRGBLight.setPixelColor(start + 2, 0);
+                    if (index == RgbUltrasonics.All) {
+                        board_emRGBLight.setPixelColor(end - 2, rgb);
+                        board_emRGBLight.setPixelColor(end - 1, 0);
+                        board_emRGBLight.setPixelColor(end, 0);
+                    }
+                    board_emRGBLight.show();
+                    basic.pause(150);
+                    board_emRGBLight.setPixelColor(start, 0);
+                    board_emRGBLight.setPixelColor(start + 1, rgb);
+                    board_emRGBLight.setPixelColor(start + 2, 0);
+                    if (index == RgbUltrasonics.All) {
+                        board_emRGBLight.setPixelColor(end - 2, 0);
+                        board_emRGBLight.setPixelColor(end - 1, rgb);
+                        board_emRGBLight.setPixelColor(end, 0);
+                    }
+                    board_emRGBLight.show();
+                    basic.pause(150);
+                    board_emRGBLight.setPixelColor(start, 0);
+                    board_emRGBLight.setPixelColor(start + 1, 0);
+                    board_emRGBLight.setPixelColor(start + 2, rgb);
+                    if (index == RgbUltrasonics.All) {
+                        board_emRGBLight.setPixelColor(end - 2, 0);
+                        board_emRGBLight.setPixelColor(end - 1, 0);
+                        board_emRGBLight.setPixelColor(end, rgb);
+                    }
+                    board_emRGBLight.show();
+                    basic.pause(150);
+                    board_emRGBLight.setBrightness(0);
+                }
+                board_RgbDisplay(4, 9, 0);
+                break;
+            case ColorEffect.Flash:
+                for (let i = 0; i < 3; i++) {
+                    board_emRGBLight.setBrightness(255);
+                    board_RgbDisplay(start, end, rgb);
+                    basic.pause(100);
+                    board_RgbDisplay(start, end, 0);
+                    basic.pause(50);
+                }
+                break;
+        }
+ }
+    */
+
+    /**
+      * set RUS04 color
+      * @param pin RGB PIN eg:DigitalPin.P16
+      * @param offset 
+      * @param index  index
+      * @param rgb color
+      * @param effect effect
+      */
+    //% blockId="sensorbit_rus04" block="part %index show color %rgb effect %effect rgbpin %pin"  group="RGB超声波传感器"
+    //% weight=75
+    //% inlineInputMode=inline
+    //% subcategory="传感器"
+    /*export function sensorbit_rus04(pin: DigitalPin, index: RgbUltrasonics, rgb: RgbColors, effect: ColorEffect): void {
+        rus04_rgb(pin, 0, index, rgb, effect);
+    }
+    */
+
+    let em_dht11Temperature = 0;
+    let em_dht11Humidity = 0;
+    /**
+     * 
+     * @param dht11pin  dht11 pin eg:DigitalPin.P13
+     * @param dht11type 
+     * @returns 
+     */
+    //% blockId="dht11value" block="value of dht11 %dht11type at pin %dht11pin"  group="DHT11温湿度传感器"
+    //% subcategory="传感器"
+    //% inlineInputMode=inline
+    //% weight=72
+    export function dht11value(dht11pin: DigitalPin, dht11type: EM_DHT11Type): number {
+        const DHT11_TIMEOUT = 100
+        const buffer = pins.createBuffer(40)
+        const data = [0, 0, 0, 0, 0]
+        let startTime = control.micros()
+
+        if (control.hardwareVersion().slice(0, 1) !== '1') { // V2
+            // TODO: V2 bug
+            pins.digitalReadPin(DigitalPin.P0);
+            pins.digitalReadPin(DigitalPin.P1);
+            pins.digitalReadPin(DigitalPin.P2);
+            pins.digitalReadPin(DigitalPin.P3);
+            pins.digitalReadPin(DigitalPin.P4);
+            pins.digitalReadPin(DigitalPin.P10);
+
+            // 1.start signal
+            pins.digitalWritePin(dht11pin, 0)
+            basic.pause(18)
+
+            // 2.pull up and wait 40us
+            pins.setPull(dht11pin, PinPullMode.PullUp)
+            pins.digitalReadPin(dht11pin)
+            control.waitMicros(40)
+
+            // 3.read data
             startTime = control.micros()
             while (pins.digitalReadPin(dht11pin) === 0) {
                 if (control.micros() - startTime > DHT11_TIMEOUT) break
             }
-            control.waitMicros(28)
-            if (pins.digitalReadPin(dht11pin) === 1) {
-                buffer[dataBits] = 1
+            startTime = control.micros()
+            while (pins.digitalReadPin(dht11pin) === 1) {
+                if (control.micros() - startTime > DHT11_TIMEOUT) break
             }
-        }
-    } else { // V1
-        // 1.start signal
-        pins.digitalWritePin(dht11pin, 0)
-        basic.pause(18)
-
-        // 2.pull up and wait 40us
-        pins.setPull(dht11pin, PinPullMode.PullUp)
-        pins.digitalReadPin(dht11pin)
-        control.waitMicros(40)
-
-        // 3.read data
-        if (pins.digitalReadPin(dht11pin) === 0) {
-            while (pins.digitalReadPin(dht11pin) === 0);
-            while (pins.digitalReadPin(dht11pin) === 1);
 
             for (let dataBits = 0; dataBits < 40; dataBits++) {
-                while (pins.digitalReadPin(dht11pin) === 1);
-                while (pins.digitalReadPin(dht11pin) === 0);
+                startTime = control.micros()
+                while (pins.digitalReadPin(dht11pin) === 1) {
+                    if (control.micros() - startTime > DHT11_TIMEOUT) break
+                }
+                startTime = control.micros()
+                while (pins.digitalReadPin(dht11pin) === 0) {
+                    if (control.micros() - startTime > DHT11_TIMEOUT) break
+                }
                 control.waitMicros(28)
                 if (pins.digitalReadPin(dht11pin) === 1) {
                     buffer[dataBits] = 1
                 }
             }
-        }
-    }
+        } else { // V1
+            // 1.start signal
+            pins.digitalWritePin(dht11pin, 0)
+            basic.pause(18)
 
-    for (let i = 0; i < 5; i++) {
-        for (let j = 0; j < 8; j++) {
-            if (buffer[8 * i + j] === 1) {
-                data[i] += 2 ** (7 - j)
+            // 2.pull up and wait 40us
+            pins.setPull(dht11pin, PinPullMode.PullUp)
+            pins.digitalReadPin(dht11pin)
+            control.waitMicros(40)
+
+            // 3.read data
+            if (pins.digitalReadPin(dht11pin) === 0) {
+                while (pins.digitalReadPin(dht11pin) === 0);
+                while (pins.digitalReadPin(dht11pin) === 1);
+
+                for (let dataBits = 0; dataBits < 40; dataBits++) {
+                    while (pins.digitalReadPin(dht11pin) === 1);
+                    while (pins.digitalReadPin(dht11pin) === 0);
+                    control.waitMicros(28)
+                    if (pins.digitalReadPin(dht11pin) === 1) {
+                        buffer[dataBits] = 1
+                    }
+                }
             }
         }
+
+        for (let i = 0; i < 5; i++) {
+            for (let j = 0; j < 8; j++) {
+                if (buffer[8 * i + j] === 1) {
+                    data[i] += 2 ** (7 - j)
+                }
+            }
+        }
+
+        if (((data[0] + data[1] + data[2] + data[3]) & 0xff) === data[4]) {
+            em_dht11Humidity = data[0] + data[1] * 0.1
+            em_dht11Temperature = data[2] + data[3] * 0.1
+        }
+
+        switch (dht11type) {
+            case EM_DHT11Type.EM_DHT11_temperature_C:
+                return em_dht11Temperature
+            case EM_DHT11Type.EM_DHT11_temperature_F:
+                return (em_dht11Temperature * 1.8) + 32
+            case EM_DHT11Type.EM_DHT11_humidity:
+                return em_dht11Humidity
+        }
+
+
     }
 
-    if (((data[0] + data[1] + data[2] + data[3]) & 0xff) === data[4]) {
-        em_dht11Humidity = data[0] + data[1] * 0.1
-        em_dht11Temperature = data[2] + data[3] * 0.1
+
+    /**
+        * 四路循迹传感器
+        */
+    //% blockId=sensor_tracking block="sensor_tracking pin |digitalpin %pin"  group="四路循迹传感器"
+    //% weight=74
+    //% subcategory="传感器"
+    //% inlineInputMode=inline
+    export function sensor_tracking(pin: DigitalPin): boolean {
+        //pins.digitalWritePin(pin, 0)
+        if (pins.digitalReadPin(pin) == 1) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
-    switch (dht11type) {
-        case EM_DHT11Type.EM_DHT11_temperature_C:
-            return em_dht11Temperature
-        case EM_DHT11Type.EM_DHT11_temperature_F:
-            return (em_dht11Temperature * 1.8) + 32
-        case EM_DHT11Type.EM_DHT11_humidity:
-            return em_dht11Humidity
+    let outPin1 = 0;
+    let outPin2 = 0;
+    let outPin3 = 0;
+    let outPin4 = 0;
+    /**
+     * 四路循迹传感器初始化
+     */
+    /**
+     * 
+     * @param pin1 pin1 eg:DigitalPin.P12
+     * @param pin2 pin2 eg:DigitalPin.P13
+     * @param pin3 pin3 eg:DigitalPin.P14
+     * @param pin4 pin4 eg:DigitalPin.P16
+     */
+    //% blockId=four_sensor_tracking block="four_sensor_tracking pin1 |digitalpin %pin1 pin2 |digitalpin %pin2 |pin3 |digitalpin %pin3 |pin4 |digitalpin %pin4"  group="四路循迹传感器"
+    //% inlineInputMode=inline
+    //% weight=73
+    //% subcategory="传感器"
+    export function four_sensor_tracking(pin1: DigitalPin, pin2: DigitalPin, pin3: DigitalPin, pin4: DigitalPin): void {
+        outPin1 = pin1;
+        outPin2 = pin2;
+        outPin3 = pin3;
+        outPin4 = pin4;
     }
 
-
-}
-
-
-/**
-    * 四路循迹传感器
-    */
-   //% blockId=sensor_tracking block="sensor_tracking pin |digitalpin %pin"  group="四路循迹传感器"
-   //% weight=74
-   //% subcategory="传感器"
-   //% inlineInputMode=inline
-   export function sensor_tracking(pin: DigitalPin): boolean {
-       //pins.digitalWritePin(pin, 0)
-          if (pins.digitalReadPin(pin) == 1) {
-             return false;
-         }else {
-             return true;
-         }
-     }
-     
-     let outPin1 = 0;
-     let outPin2 = 0;
-     let outPin3 = 0;
-     let outPin4 = 0;
-     /**
-      * 四路循迹传感器初始化
-      */
-     /**
-      * 
-      * @param pin1 pin1 eg:DigitalPin.P12
-      * @param pin2 pin2 eg:DigitalPin.P13
-      * @param pin3 pin3 eg:DigitalPin.P14
-      * @param pin4 pin4 eg:DigitalPin.P16
-      */
-     //% blockId=four_sensor_tracking block="four_sensor_tracking pin1 |digitalpin %pin1 pin2 |digitalpin %pin2 |pin3 |digitalpin %pin3 |pin4 |digitalpin %pin4"  group="四路循迹传感器"
-     //% inlineInputMode=inline
-     //% weight=73
-     //% subcategory="传感器"
-     export function four_sensor_tracking(pin1: DigitalPin, pin2: DigitalPin, pin3: DigitalPin, pin4: DigitalPin): void {
-       outPin1 = pin1;
-       outPin2 = pin2;
-       outPin3 = pin3;
-       outPin4 = pin4;
-     }
-     
-     //% blockId=four_sensor_trackingValue block="four_sensor_tracking get sensor value"  group="四路循迹传感器"
-     //% inlineInputMode=inline
-     //% weight=72
-     //% subcategory="传感器"
-     export function four_sensor_trackingValue(): number {
-       let result = 0;
-//         pins.digitalWritePin(outPin1, 0)
-//         pins.digitalWritePin(outPin2, 0)
-//         pins.digitalWritePin(outPin3, 0)
-//         pins.digitalWritePin(outPin4, 0)
-       if (pins.digitalReadPin(outPin1) == 1) {
-         result = 1 | result;
-       }else {
-         result = 0 | result;
-       }
-       if (pins.digitalReadPin(outPin2) == 1) {
-         result = 2 | result;
-       }else {
-         result = 0 | result;
-       }
-       if (pins.digitalReadPin(outPin3) == 1) {
-         result = 4 | result;
-       }else {
-         result = 0 | result;
-       }
+    //% blockId=four_sensor_trackingValue block="four_sensor_tracking get sensor value"  group="四路循迹传感器"
+    //% inlineInputMode=inline
+    //% weight=72
+    //% subcategory="传感器"
+    export function four_sensor_trackingValue(): number {
+        let result = 0;
+        //         pins.digitalWritePin(outPin1, 0)
+        //         pins.digitalWritePin(outPin2, 0)
+        //         pins.digitalWritePin(outPin3, 0)
+        //         pins.digitalWritePin(outPin4, 0)
+        if (pins.digitalReadPin(outPin1) == 1) {
+            result = 1 | result;
+        } else {
+            result = 0 | result;
+        }
+        if (pins.digitalReadPin(outPin2) == 1) {
+            result = 2 | result;
+        } else {
+            result = 0 | result;
+        }
+        if (pins.digitalReadPin(outPin3) == 1) {
+            result = 4 | result;
+        } else {
+            result = 0 | result;
+        }
         if (pins.digitalReadPin(outPin4) == 1) {
-         result = 8 | result;
-       }else {
-         result = 0 | result;
-       }
-       return result;
-     }
-   
-   function i2cread(addr: number, reg: number) {
-       pins.i2cWriteNumber(addr, reg, NumberFormat.UInt8BE);
-       let val = pins.i2cReadNumber(addr, NumberFormat.UInt8BE);
-       return val;
-   }
+            result = 8 | result;
+        } else {
+            result = 0 | result;
+        }
+        return result;
+    }
 
-   
+    function i2cread(addr: number, reg: number) {
+        pins.i2cWriteNumber(addr, reg, NumberFormat.UInt8BE);
+        let val = pins.i2cReadNumber(addr, NumberFormat.UInt8BE);
+        return val;
+    }
 
-   let JOYSTICK_I2C_ADDR = 0x5A;
-   let JOYSTICK_LEFT_X_REG = 0x10;
-   let JOYSTICK_LEFT_Y_REG = 0x11;
 
-   let BUTOON_LEFT_REG = 0x24;
-   let BUTOON_RIGHT_REG = 0x23;
-   let BUTOON_UP_REG = 0x22;
-   let BUTOON_DOWN_REG = 0x21;
-   let JOYSTICK_BUTTON_REG = 0x20;
-   let NONE_PRESS = 8;
 
-   function Get_Button_Status (button : number){
-       switch(button) {
-           case 0: 
-               return i2cread(JOYSTICK_I2C_ADDR,BUTOON_LEFT_REG);
-           case 1: 
-               return i2cread(JOYSTICK_I2C_ADDR,BUTOON_RIGHT_REG);
-           case 2: 
-               return i2cread(JOYSTICK_I2C_ADDR,BUTOON_UP_REG);
-           case 3: 
-               return i2cread(JOYSTICK_I2C_ADDR,BUTOON_DOWN_REG);
-           case 4: 
-               return i2cread(JOYSTICK_I2C_ADDR,JOYSTICK_BUTTON_REG);
-           default:
-               return 0xff;
-       }
-   }
+    let JOYSTICK_I2C_ADDR = 0x5A;
+    let JOYSTICK_LEFT_X_REG = 0x10;
+    let JOYSTICK_LEFT_Y_REG = 0x11;
+
+    let BUTOON_LEFT_REG = 0x24;
+    let BUTOON_RIGHT_REG = 0x23;
+    let BUTOON_UP_REG = 0x22;
+    let BUTOON_DOWN_REG = 0x21;
+    let JOYSTICK_BUTTON_REG = 0x20;
+    let NONE_PRESS = 8;
+
+    function Get_Button_Status(button: number) {
+        switch (button) {
+            case 0:
+                return i2cread(JOYSTICK_I2C_ADDR, BUTOON_LEFT_REG);
+            case 1:
+                return i2cread(JOYSTICK_I2C_ADDR, BUTOON_RIGHT_REG);
+            case 2:
+                return i2cread(JOYSTICK_I2C_ADDR, BUTOON_UP_REG);
+            case 3:
+                return i2cread(JOYSTICK_I2C_ADDR, BUTOON_DOWN_REG);
+            case 4:
+                return i2cread(JOYSTICK_I2C_ADDR, JOYSTICK_BUTTON_REG);
+            default:
+                return 0xff;
+        }
+    }
 
     //% blockId=actuator_buzzer0 block="actuator_buzzer0 pin %pin|status %status"   group="有源蜂鸣器"
     //% weight=70
@@ -1383,10 +1380,10 @@ namespace sensors {
      * 激光模块
      */
     //% blockId=actuator_laser block="actuator_laser pin %pin|status %status"   group="激光模块"
-	//% weight=70
-	//% subcategory="执行器"
-    export function actuator_laser(pin: DigitalPin,status: on_off): void {
-        pins.digitalWritePin(pin,status)
+    //% weight=70
+    //% subcategory="执行器"
+    export function actuator_laser(pin: DigitalPin, status: on_off): void {
+        pins.digitalWritePin(pin, status)
     }
 
     /**
@@ -1412,7 +1409,7 @@ namespace sensors {
             pins.analogWritePin(_INB, 0)
         }
 
-    } 
+    }
 
     //% blockId=setled block="set led %lpin|status %lstatus"   group="LED灯"
     //% weight=70
@@ -1445,10 +1442,10 @@ namespace sensors {
     //% b_color.min=0  b_color.max=255
     //% weight=70
     //% subcategory="显示器"
-    export function selectcolor(r_color: number,g_color: number,b_color: number): void {
-        pins.analogWritePin(_Rpins,r_color)
-        pins.analogWritePin(_Gpins,g_color)
-        pins.analogWritePin(_Bpins,b_color)
+    export function selectcolor(r_color: number, g_color: number, b_color: number): void {
+        pins.analogWritePin(_Rpins, r_color)
+        pins.analogWritePin(_Gpins, g_color)
+        pins.analogWritePin(_Bpins, b_color)
     }
 
     let rpins = 0
@@ -1485,7 +1482,7 @@ namespace sensors {
         pins.digitalWritePin(a, _status)
     }
 
-  
+
 
     let i2cAddr: number
     let BK: number
@@ -1625,11 +1622,11 @@ namespace sensors {
         pins.i2cWriteNumber(DISPLAY_I2C_ADDRESS + (bit % 4), d, NumberFormat.Int8BE)
     }
 
-   
+
     //% blockId="TM650_Control" block="display control" group="TM1650数码管"
     //% weight=40 blockGap=8
     //% subcategory="显示器"
-     function TM650_Control(option: Select) {
+    function TM650_Control(option: Select) {
         if (option == 0) {
             cmd(_intensity * 16 + 1)
         }
@@ -1956,22 +1953,22 @@ namespace sensors {
         return tm
     }
 
-   
+
     //% blockId="Speech_recognition_reset" block="Voice recognition module for reset"  group="语音识别模块"
     //% subcategory="智能模块"
     //% inlineInputMode=inline
-     //% weight=100
+    //% weight=100
     export function Speech_recognition_reset(): void {
-        i2ccmd(VOICE_IIC_ADDR,VOICE_RESET_REG)
+        i2ccmd(VOICE_IIC_ADDR, VOICE_RESET_REG)
         basic.pause(300)
     }
-    
+
     //% blockId="Speech_recognition_start" block="Voice recognition starts to recognize"  group="语音识别模块"
     //% subcategory="智能模块"
     //% inlineInputMode=inline
     //% weight=99
     export function Speech_recognition_start(): void {
-        i2ccmd(VOICE_IIC_ADDR,VOICE_ASR_START_REG)
+        i2ccmd(VOICE_IIC_ADDR, VOICE_ASR_START_REG)
         basic.pause(300)
     }
 
@@ -1979,8 +1976,8 @@ namespace sensors {
     //% subcategory="智能模块"
     //% inlineInputMode=inline
     //% weight=98
-    export function Speech_recognition_mode(Mode : Mode): void {
-        i2cwrite(VOICE_IIC_ADDR,VOICE_RESET_REG,Mode)
+    export function Speech_recognition_mode(Mode: Mode): void {
+        i2cwrite(VOICE_IIC_ADDR, VOICE_RESET_REG, Mode)
         basic.pause(300)
     }
 
@@ -1988,8 +1985,8 @@ namespace sensors {
     //% subcategory="智能模块"
     //% inlineInputMode=inline
     //% weight=95
-    export function Speech_recognition_glossary(word_number : number, word_content : string): void {
-        i2cwrite1(VOICE_IIC_ADDR, VOICE_ADD_WORDS_REG, word_number,word_content)
+    export function Speech_recognition_glossary(word_number: number, word_content: string): void {
+        i2cwrite1(VOICE_IIC_ADDR, VOICE_ADD_WORDS_REG, word_number, word_content)
         basic.pause(300)
     }
 
@@ -1999,41 +1996,41 @@ namespace sensors {
     //% inlineInputMode=inline
     //% weight=96
     export function Speech_recognition_get_result(): number {
-        let result =i2cread(VOICE_IIC_ADDR,VOICE_RESULT_REG)
+        let result = i2cread(VOICE_IIC_ADDR, VOICE_RESULT_REG)
         return result;
-     }
+    }
 
     //% blockId="Speech_recognition_time" block="Voice recognition to set wake-up time %time"  group="语音识别模块"
     //% subcategory="智能模块"
     //% inlineInputMode=inline
     //% weight=97
-    export function Speech_recognition_time(time : number): void {
-        i2cwrite(VOICE_IIC_ADDR,VOICE_CONFIG_TIME_REG,time)
+    export function Speech_recognition_time(time: number): void {
+        i2cwrite(VOICE_IIC_ADDR, VOICE_CONFIG_TIME_REG, time)
         basic.pause(300)
     }
 
-    function stringToBytes (str : string) {  
+    function stringToBytes(str: string) {
 
 
         let ch = 0;
         let st = 0;
-        let gm:number[]; 
+        let gm: number[];
         gm = [];
-        for (let i = 0; i < str.length; i++ ) { 
-            ch = str.charCodeAt(i);  
-            st = 0 ;                 
+        for (let i = 0; i < str.length; i++) {
+            ch = str.charCodeAt(i);
+            st = 0;
 
-           do {  
-                st = ( ch & 0xFF );  
-                ch = ch >> 8;   
-                gm.push(st);        
-            }    
+            do {
+                st = (ch & 0xFF);
+                ch = ch >> 8;
+                gm.push(st);
+            }
 
-            while ( ch );  
+            while (ch);
 
-        }  
-        return gm;  
-    } 
+        }
+        return gm;
+    }
 
 
 }
