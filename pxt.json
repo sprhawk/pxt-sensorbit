@@ -4,14 +4,21 @@
     "description": "PH2.0传感器",
     "license": "MIT",
     "dependencies": {
-        "core": "*"
+        "core": "*",
+        "microphone": "*"
     },
     "files": [
         "README.md",
         "main.ts",
-		"_locales/zh/sensors-strings.json"
+        "_locales/zh/sensors-strings.json"
     ],
     "public": true,
+    "targetVersions": {
+        "target": "9.0.12",
+        "targetId": "microbit"
+    },
+    "supportedTargets": [
+        "microbit"
+    ],
     "preferredEditor": "tsprj"
-
 }
